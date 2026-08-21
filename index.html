@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nest Movv | Produtora Audiovisual</title>
+    <meta name="description" content="Produtora de produção e pós-produção audiovisual. Especialistas em vídeos para redes sociais e criadores de conteúdo.">
+    
+    <!-- Blindagem reforçada contra o modo escuro automático/forçado dos celulares -->
+    <meta name="color-scheme" content="only dark">
+    <meta name="theme-color" content="#0A0A0A">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter para corpo de texto e Montserrat para títulos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:ital,wght@0,500;0,700;0,800;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons para ícones modernos -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        // Paleta dark base
+                        nest: {
+                            black: '#0A0A0A',
+                            dark: '#141414',
+                            gray: '#2A2A2A',
+                            light: '#E5E5E5',
+                            accent: '#F9F8F6',
+                            // Nova Paleta de Cores Nest Movv
+                            'brand-darker': '#c65812', // Marrom mais escuro
+                            'brand-dark': '#e6853b',   // Marrom escuro
+                            brand: '#fc9804',          // Marrom médio (Principal/Vibrante)
+                            'brand-light': '#f0c481',  // Marrom claro
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Trava o modo escuro direto no motor de renderização do navegador e blinda contra filtros */
+        :root {
+            color-scheme: only dark;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Força os elementos de texto e fundo a ignorarem inversões automáticas de Xiaomi/Samsung */
+        body, html {
+            background-color: #0A0A0A !important;
+            color: #E5E5E5 !important;
+            color-adjust: exact !important;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Efeitos adicionais */
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Efeito de hover em cards */
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(to bottom right, #141414, #1a1a1a);
+        }
+
+        /* Classes para a animação de scroll (Reveal On Scroll) */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Oculta scrollbar mas mantém funcionalidade */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A2A; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fc9804; 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-nest-brand selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed top-[26px] left-1/2 transform -translate-x-1/2 w-[calc(100%-40px)] z-50 glass-nav transition-all duration-300 rounded-full" id="navbar">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[55px]">
+                <div class="flex-shrink-0 flex items-center cursor-pointer pl-2 md:pl-0" onclick="window.scrollTo(0,0)">
+                    <img src="images/Nova_Logo_Nest_site.png" alt="Nest Movv Logo" style="height: 32px; width: auto; object-fit: contain;">
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 items-center pr-2">
+                    <a href="#sobre" class="text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors">Sobre</a>
+                    <a href="#servicos" class="text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors">Especialidades</a>
+                    <a href="#portfolio" class="text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors">Trabalhos</a>
+                    <a href="#contato" class="bg-white text-nest-black px-5 py-2 rounded-full text-xs font-bold hover:bg-nest-brand hover:text-white transition-all duration-300">
+                        Orçamento
+                    </a>
+                </div>
+
+                <!-- Mobile menu button minimalista com cantos arredondados -->
+                <div class="md:hidden flex items-center pr-2">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none flex flex-col justify-center items-center w-9 h-9 space-y-[5px] bg-nest-gray/50 border border-white/5 rounded-full transition-all duration-300 active:scale-95">
+                        <span class="block w-4 h-[2px] bg-current rounded-full transition-all duration-300 ease-out origin-center" id="line1"></span>
+                        <span class="block w-4 h-[2px] bg-current rounded-full transition-all duration-300 ease-out" id="line2"></span>
+                        <span class="block w-4 h-[2px] bg-current rounded-full transition-all duration-300 ease-out origin-center" id="line3"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel com animação suave de descer -->
+        <div id="mobile-menu" class="md:hidden absolute top-[calc(100%+0.5rem)] left-0 w-full bg-nest-dark/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out origin-top opacity-0 invisible -translate-y-4">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#sobre" class="block px-3 py-4 text-base font-medium text-gray-300 hover:text-nest-brand-light border-b border-white/5">Sobre nós</a>
+                <a href="#servicos" class="block px-3 py-4 text-base font-medium text-gray-300 hover:text-nest-brand-light border-b border-white/5">Especialidades</a>
+                <a href="#portfolio" class="block px-3 py-4 text-base font-medium text-gray-300 hover:text-nest-brand-light border-b border-white/5">Trabalhos</a>
+                <div class="pt-6 pb-2">
+                    <a href="#contato" class="block w-full text-center bg-nest-brand text-nest-black px-5 py-3 rounded-full text-base font-bold shadow-lg shadow-nest-brand/20">
+                        Falar no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-[98px] pb-20 lg:pt-[162px] lg:pb-32 overflow-hidden min-h-[90vh] flex items-center">
+        <!-- Elementos decorativos de fundo (Luzes de estúdio) -->
+        <div class="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-nest-brand-darker opacity-20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 -left-1/4 w-[600px] h-[600px] bg-nest-brand-dark opacity-10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                <!-- Coluna Esquerda: Textos -->
+                <div class="max-w-2xl opacity-0 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-nest-gray border border-gray-700 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-nest-brand animate-pulse"></span>
+                        <span class="text-xs font-medium tracking-wide uppercase text-gray-300">Agenda aberta para novos projetos</span>
+                    </div>
+                    
+                    <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-8 text-white">
+                        Ideias que ganham <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-nest-brand-light via-nest-brand to-nest-brand-darker italic">movimento.</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-400 mb-10 font-light leading-relaxed">
+                        Sua parceira estratégica em produção e pós-produção audiovisual. Transformamos narrativas em conteúdo de alto impacto para redes sociais.
+                    </p>
+                    
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#contato" class="inline-flex items-center justify-center gap-2 bg-nest-brand text-nest-black px-8 py-4 rounded-full text-base font-bold hover:bg-nest-brand-light transition-colors shadow-[0_0_20px_rgba(252,152,4,0.3)]">
+                            Inicie seu projeto
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                        <a href="#portfolio" class="inline-flex items-center justify-center gap-2 bg-transparent text-white border border-gray-600 px-8 py-4 rounded-full text-base font-medium hover:border-nest-brand hover:text-nest-brand transition-colors">
+                            Ver trabalhos
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Imagem Inteira com Máscara de Transparência Suave -->
+                <div class="relative w-full flex justify-center lg:justify-end opacity-0 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="relative w-full max-w-lg flex items-center justify-center">
+                        <div class="w-full" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 35%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-image: linear-gradient(to top, transparent 0%, black 35%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-composite: source-in; mask-composite: intersect;">
+                            <img src="images/Equipe_Nest.png" alt="Equipe Nest Movv" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50 hidden lg:block">
+            <i class="ph ph-arrow-down text-2xl text-white"></i>
+        </div>
+    </section>
+
+    <!-- Como posso ajudar (Mosaico) -->
+    <section id="ajuda" class="py-20 bg-nest-black reveal-on-scroll relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-nest-brand tracking-tight">
+                    Olá, como eu posso te ajudar?
+                </h2>
+            </div>
+            
+            <!-- Grid Mosaico (1 col mobile, 2 col tablet, 4 col desktop) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Opção 1 -->
+                <a href="https://www.google.com.br" target="_blank" rel="noopener noreferrer" class="group block relative rounded-2xl overflow-hidden aspect-video sm:aspect-auto sm:h-64 shadow-lg border border-white/5 bg-nest-dark">
+                    <img src="botao_preciso_edicao.jpg" alt="Serviço 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <!-- Camada sutil para realçar o hover -->
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                </a>
+                
+                <!-- Opção 2 -->
+                <a href="https://www.google.com.br" target="_blank" rel="noopener noreferrer" class="group block relative rounded-2xl overflow-hidden aspect-video sm:aspect-auto sm:h-64 shadow-lg border border-white/5 bg-nest-dark">
+                    <img src="botao_preciso_edicao.jpg" alt="Serviço 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                </a>
+
+                <!-- Opção 3 -->
+                <a href="https://www.google.com.br" target="_blank" rel="noopener noreferrer" class="group block relative rounded-2xl overflow-hidden aspect-video sm:aspect-auto sm:h-64 shadow-lg border border-white/5 bg-nest-dark">
+                    <img src="botao_preciso_edicao.jpg" alt="Serviço 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                </a>
+
+                <!-- Opção 4 -->
+                <a href="https://www.google.com.br" target="_blank" rel="noopener noreferrer" class="group block relative rounded-2xl overflow-hidden aspect-video sm:aspect-auto sm:h-64 shadow-lg border border-white/5 bg-nest-dark">
+                    <img src="botao_preciso_edicao.jpg" alt="Serviço 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section id="servicos" class="py-24 bg-nest-dark reveal-on-scroll">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 md:mb-24 md:flex md:justify-between md:items-end">
+                <div class="max-w-2xl">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-4 text-white">Nossas frentes de atuação</h2>
+                    <p class="text-gray-400 text-lg">Dominamos o processo de ponta a ponta, ou entramos onde você mais precisa.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card 1: Produção -->
+                <div class="service-card bg-nest-black border border-nest-gray p-8 md:p-12 rounded-3xl">
+                    <div class="w-14 h-14 bg-nest-gray rounded-2xl flex items-center justify-center mb-8">
+                        <i class="ph ph-aperture text-3xl text-nest-brand"></i>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl font-bold mb-4 text-white">Produção<br>Audiovisual</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Captação profissional de imagem e áudio. Ideal para profissionais, marcas e eventos que buscam criar conteúdo de alta qualidade com estratégia voltada para as redes sociais.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand"></i> Cobertura de Eventos
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand"></i> Captação para Infoprodutos
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand"></i> Vídeos Institucionais e Comerciais
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand"></i> Estratégia de Conteúdo
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Pós Produção -->
+                <div class="service-card bg-nest-black border border-nest-gray p-8 md:p-12 rounded-3xl">
+                    <div class="w-14 h-14 bg-nest-gray rounded-2xl flex items-center justify-center mb-8">
+                        <i class="ph ph-scissors text-3xl text-nest-brand-light"></i>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl font-bold mb-4 text-white">Pós-Produção &<br>Edição</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        A mágica acontece aqui. Edição dinâmica e retentiva para criadores de conteúdo, agências e filmmakers que precisam de um parceiro de confiança para finalizar seus projetos.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand-light"></i> Edição para Reels/TikTok/Shorts
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand-light"></i> Vídeos Longos (YouTube)
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand-light"></i> Color Grading & Sound Design
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <i class="ph-fill ph-check-circle text-nest-brand-light"></i> Motion Graphics Básico
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section (Mockup) -->
+    <section id="portfolio" class="py-24 reveal-on-scroll">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold mb-4 text-white">Últimos Trabalhos</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Um pouco do que temos construído com nossos parceiros.</p>
+            </div>
+
+            <!-- Grid de Projetos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Projeto 1 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-nest-gray cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop" alt="Cena de gravação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <span class="text-nest-brand-light text-xs font-bold uppercase tracking-wider mb-2">Produção de Evento</span>
+                        <h3 class="text-white text-xl font-display font-bold">Lançamento Marca X</h3>
+                    </div>
+                </div>
+
+                <!-- Projeto 2 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-nest-gray cursor-pointer lg:translate-y-12">
+                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=800&auto=format&fit=crop" alt="Ilha de edição" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <span class="text-nest-brand text-xs font-bold uppercase tracking-wider mb-2">Edição & Pós</span>
+                        <h3 class="text-white text-xl font-display font-bold">Conteúdo YouTube Criador Y</h3>
+                    </div>
+                </div>
+
+                <!-- Projeto 3 -->
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-nest-gray cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=800&auto=format&fit=crop" alt="Câmera detalhe" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <span class="text-nest-brand-dark text-xs font-bold uppercase tracking-wider mb-2">Captação & Edição</span>
+                        <h3 class="text-white text-xl font-display font-bold">Campanha Social Media Z</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 text-center">
+                <a href="#" class="inline-flex items-center gap-2 text-white border-b border-white pb-1 hover:text-nest-brand hover:border-nest-brand transition-colors font-medium">
+                    Ver portfólio completo <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Footer -->
+    <footer id="contato" class="bg-nest-black border-t border-nest-gray pt-20 pb-10 reveal-on-scroll">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-nest-dark to-black border border-nest-gray rounded-3xl p-8 md:p-16 text-center relative overflow-hidden mb-20">
+                <!-- Decorative elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-nest-brand-darker opacity-20 rounded-full blur-[80px]"></div>
+                
+                <h2 class="font-display text-4xl md:text-6xl font-bold mb-6 text-white relative z-10">Vamos criar algo<br>incrível juntos?</h2>
+                <p class="text-gray-400 max-w-xl mx-auto mb-10 relative z-10">Seja para captar o seu próximo evento ou editar o seu conteúdo semanal, a Nest Movv está pronta para elevar o seu nível.</p>
+                
+                <a href="#" class="inline-flex items-center justify-center gap-2 bg-nest-brand text-nest-black px-8 py-4 rounded-full text-lg font-bold hover:bg-nest-brand-light transition-all transform hover:scale-105 relative z-10 shadow-[0_0_20px_rgba(252,152,4,0.3)] hover:shadow-[0_0_30px_rgba(240,196,129,0.5)]">
+                    <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+                    Falar com a Produtora
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 border-b border-nest-gray pb-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                         <img src="images/Nova_Logo_Nest_site.png" alt="Nest Movv Logo" style="height: 80px; width: auto; object-fit: contain;">
+                    </div>
+                    <p class="text-gray-500 text-sm">Produção e pós-produção audiovisual para quem quer ir além.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4 font-display">Contato</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-white transition-colors">contato@nestmovv.com.br</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">+55 (00) 00000-0000</a></li>
+                        <li>Brasil</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 font-display">Redes</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-nest-gray flex items-center justify-center text-gray-400 hover:text-white hover:bg-nest-brand transition-all">
+                            <i class="ph-fill ph-instagram-logo text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-nest-gray flex items-center justify-center text-gray-400 hover:text-white hover:bg-nest-brand transition-all">
+                            <i class="ph-fill ph-linkedin-logo text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-nest-gray flex items-center justify-center text-gray-400 hover:text-white hover:bg-nest-brand transition-all">
+                            <i class="ph-fill ph-youtube-logo text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
+                <p>&copy; 2026 Nest Movv. Todos os direitos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-gray-300">Termos</a>
+                    <a href="#" class="hover:text-gray-300">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Mobile Toggle & Animacao
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Anima o icone para um "X"
+                line1.classList.add('translate-y-[7px]', 'rotate-45');
+                line2.classList.add('opacity-0', 'translate-x-3');
+                line3.classList.add('-translate-y-[7px]', '-rotate-45');
+                
+                // Mostra o Menu (Desce e faz fade in)
+                mobileMenu.classList.remove('opacity-0', 'invisible', '-translate-y-4');
+                mobileMenu.classList.add('opacity-100', 'visible', 'translate-y-0');
+            } else {
+                // Reverte o Icone
+                line1.classList.remove('translate-y-[7px]', 'rotate-45');
+                line2.classList.remove('opacity-0', 'translate-x-3');
+                line3.classList.remove('-translate-y-[7px]', '-rotate-45');
+                
+                // Esconde o Menu
+                mobileMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-4');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+
+        // Fechar menu mobile ao clicar em um link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+        // Efeito de background na navbar ao rolar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-[0_8px_30px_rgb(0,0,0,0.5)]');
+                navbar.style.background = 'rgba(10, 10, 10, 0.85)';
+            } else {
+                navbar.classList.remove('shadow-[0_8px_30px_rgb(0,0,0,0.5)]');
+                navbar.style.background = 'rgba(10, 10, 10, 0.6)';
+            }
+        });
+
+        // Observer para as seções aparecerem deslizando suavemente ao rolar a página
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target); // Anima apenas na primeira vez que aparece
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
